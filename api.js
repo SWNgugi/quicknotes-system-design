@@ -23,7 +23,8 @@ async function request(url, options) {
     throw new Error(`Request failed with status ${response.status}`);
   }
 
-  const data = await response.json();
+    const text = await response.text();
+  const data = text ? JSON.parse(text) : null;
   return { status: response.status, data: data };
 }
 
@@ -48,7 +49,13 @@ function renderNotes() {
     const body = document.createElement("p");
     body.textContent = note.body;
 
-    li.append(title, body);
+        const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.type = "button";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => deleteNote(note, deleteBtn));
+
+    li.append(title, body, deleteBtn);
     notesList.append(li);
   }
 }
@@ -120,6 +127,32 @@ async function createNote(event) {
     );
   } finally {
     submitBtn.disabled = false;
+  }
+}
+
+/*
+  DELETE: remove a note.
+  JSONPlaceholder is a practice API. It replies as if the note was deleted
+  (status 200) but never changes its data, and the notes we create (always
+  id 101) are never really stored. So we send the real DELETE request, and only
+  when the server says OK do we remove that one note from the list on the page.
+  We remove it by the note object itself, not by its id, because every created
+  note has the same id (101). Clicking "Load notes" brings the original 10 back,
+  which is expected with a fake API.
+*/
+async function deleteNote(note, button) {
+  setStatus("Deleting note...");
+  button.disabled = true;
+
+  try {
+    const result = await request(`${API_URL}/${note.id}`, { method: "DELETE" });
+    notes = notes.filter((item) => item !== note);
+    renderNotes();
+    setStatus(`Note deleted (status ${result.status}).`, "success");
+  } catch (error) {
+    console.error(error);
+    setStatus("Sorry, we couldn't delete that note. Please try again.", "error");
+    button.disabled = false;
   }
 }
 
