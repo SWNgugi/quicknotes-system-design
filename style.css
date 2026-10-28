@@ -1,0 +1,145 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  line-height: 1.5;
+  color: #222;
+  background: #eef1f5;
+}
+
+header {
+  background: #2b5cff;
+  color: #fff;
+  text-align: center;
+  padding: 24px 16px;
+}
+
+header h1,
+header p {
+  margin: 0;
+}
+
+main {
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+main section {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+button {
+  background: #2b5cff;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #1e43c4;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+form button {
+  margin-top: 16px;
+}
+
+/* Status messages */
+#status {
+  min-height: 1.5em;
+  padding: 0;
+}
+
+#status.success {
+  color: #1b6e2d;
+  font-weight: 600;
+}
+
+#status.error {
+  color: #d00000;
+  font-weight: 600;
+}
+
+/* Notes */
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note {
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-left: 6px solid #2b5cff;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.note h3 {
+  margin: 0 0 6px;
+  text-transform: capitalize;
+}
+
+.note p {
+  margin: 0 0 8px;
+}
+
+.empty {
+  color: #555;
+  font-style: italic;
+}
+
+.delete-btn {
+  background: #d00000;
+  padding: 6px 12px;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background: #a30000;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 16px 12px;
+  }
+}
